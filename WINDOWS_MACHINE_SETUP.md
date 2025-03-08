@@ -18,4 +18,10 @@
     7. Win + Shift + / Short cut menu
 10. Install notepad++ `winget install --id Notepad++.Notepad++`
 11. `winget install --id Microsoft.Sysinternals`
-12. 
+
+## Terminal Settings
+The following changes were made to terminal settings
+![Startup](./images/terminal-settings.png)
+![Interaction](./images/terminal-settings-2.png)
+![Appearance](./images/terminal-settings-3.png)
+![Defaults](./images/terminal-settings-4.png)
