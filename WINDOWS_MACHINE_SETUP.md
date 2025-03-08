@@ -21,7 +21,7 @@
 
 ## Startup Apps Settings
 The following changes were made to `Startup Apps` settings
-![Startup Apps](./images/startup-app-settings.png)
+![Startup Apps](./images/startup-apps-settings.png)
 
 
 ## Terminal Settings
