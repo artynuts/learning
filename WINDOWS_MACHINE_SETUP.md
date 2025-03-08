@@ -19,6 +19,11 @@
 10. Install notepad++ `winget install --id Notepad++.Notepad++`
 11. `winget install --id Microsoft.Sysinternals`
 
+## Startup Apps Settings
+The following changes were made to `Startup Apps` settings
+![Startup Apps](./images/startup-app-settings.png)
+
+
 ## Terminal Settings
 The following changes were made to terminal settings
 ![Startup](./images/terminal-settings.png)
