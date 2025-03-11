@@ -13,3 +13,15 @@
 
 ## Storing the API Keys
 > TODO
+
+## Resources
+A collection of resources for learning AI
+1. Azure AI Foundry
+    1. [getting-started-with-azure-ai-studio](https://techcommunity.microsoft.com/blog/educatordeveloperblog/getting-started-with-azure-ai-studio/4095602?wt.mc_id=studentamb_258691)
+    2. [Azure AI Foundry - How to develop](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview?tabs=sync&pivots=programming-language-python?wt.mc_id=studentamb_258691)
+2. GenAI
+    1. [generative-ai-for-beginners](https://github.com/microsoft/generative-ai-for-beginners)
+  
+
+
+
