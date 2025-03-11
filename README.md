@@ -5,3 +5,4 @@ This repository is used to capture my learnings
 * [Markdown](MARKDOWN.md)
 * [Git](GIT.md)
 * [VSCode](VSCODE.md)
+* [AI Apps](AI_APPS.md)
