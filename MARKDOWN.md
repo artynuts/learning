@@ -56,4 +56,26 @@ Or use 3 backticks
 [id]: www.google.com "Google"
 [dogid]: dog.jpg "Dog"
 
+#### Tables
+
+| Header 1 | Header 2 | Header 3 |
+|----------|----------|----------|
+| Row 1 Col 1 | Row 1 Col 2 | Row 1 Col 3 |
+| Row 2 Col 1 | Row 2 Col 2 | Row 2 Col 3 |
+
+##### Table With alignment
+
+| Name       | Age | Occupation   |
+|:-----------|:---:|-------------:|
+| Alice      |  30 |     Engineer |
+| Bob        |  25 |     Designer |
+| Charlie    |  35 |      Teacher |
+
+##### Spanning rows
+
+| Alice | Reddit   | Twitter     |
+| ----- | -------- | ----------- |
+| Alice | u/alice  | @alice      |
+|       | /r/pizza | @ilovepizza |
+
 
