@@ -6,8 +6,6 @@
 4. Install powershell `winget install --id Microsoft.Powershell --source winget` and `pwsh --version`
 5. Install NodeJS `winget install --id OpenJS.NodeJS` and `node --version`
 6. Install Python `winget install --id Python.Python.3.9` and `python --version`
-7. Install ChatGpt from appstore
-8. Navigate to claude.ai, login and pin to taskbar
 9. Install Microsoft PowerToys `winget install --id Microsoft.PowerToys`
     1. Install Command Not Found from within powertoys
     2. Windows + Shift + V for advance paste
@@ -18,11 +16,11 @@
     7. Win + Shift + / Short cut menu
 10. Install notepad++ `winget install --id Notepad++.Notepad++`
 11. `winget install --id Microsoft.Sysinternals`
+12. `winget install Telerik.Fiddler.Everywhere` - this was needed because as i started to run local servers on the client 
 
 ## Startup Apps Settings
 The following changes were made to `Startup Apps` settings
 ![Startup Apps](./images/startup-apps-settings.png)
-
 
 ## Terminal Settings
 The following changes were made to terminal settings
