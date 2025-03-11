@@ -49,12 +49,12 @@ Or use 3 backticks
 [link to bing.com](www.bing.com)  
 [cross reference to google.com][id]  
 #### Cat image as inline reference
-![cat image](cat.jpg)  
+![cat image](images/cat.jpg)  
 #### Dog image as a cross reference
 ![dog image][dogid]
 
 [id]: www.google.com "Google"
-[dogid]: dog.jpg "Dog"
+[dogid]: images/dog.jpg "Dog"
 
 #### Tables
 
