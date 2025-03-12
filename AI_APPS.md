@@ -21,6 +21,8 @@ A collection of resources for learning AI
     2. [Azure AI Foundry - How to develop](https://learn.microsoft.com/en-us/azure/ai-foundry/how-to/develop/sdk-overview?tabs=sync&pivots=programming-language-python?wt.mc_id=studentamb_258691)
 2. GenAI
     1. [generative-ai-for-beginners](https://github.com/microsoft/generative-ai-for-beginners)
+2. LLMOps & Evaluation
+    1. [Large Language Model Operations (LLMOps) Explained](https://www.youtube.com/watch?v=cvPEiPt7HXo)
   
 
 
