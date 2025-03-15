@@ -41,7 +41,12 @@ git rebase --abort
 ### Create new branch
 
 ```
-git checkout -b feature/server-persistence
+git checkout -b <branch-path/branch-name> # feature/server-persistence
+```
+### Publish the branch 
+
+```
+git push -u origin <branch-path/branch-name> #feature/server-persistenc
 ```
 
 ### Restore
