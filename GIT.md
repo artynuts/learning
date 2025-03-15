@@ -38,3 +38,40 @@ git log
 git rebase --abort
 ```
 
+### Create new branch
+
+```
+git checkout -b feature/server-persistence
+```
+
+### Restore
+
+Restore specified files to their state in the last commit.
+
+```
+git restore . # Restore all files in current directory and subdirectories
+git restore file.txt # Restore specific file
+git restore --staged . # Unstage all changes (but keep modifications)
+git restore --source=main file.txt # Restore file from specific branch/commit
+```
+
+### Clean
+
+Remove untracked files and directories from current working directory
+
+```
+git clean -fd
+```
+
+### Status
+
+Shows the current status of your working directory and staging area. 
+1. Which branch you are on
+2. Changes staged for commit
+3. Changes not staged for commit
+
+```
+git status
+```
+
+
