@@ -2,7 +2,8 @@
 *Italics* **Bold**
 This is the first paragraph. The next para is become of 2 spaces  
 This is the second paragraph. The next para is because this line ends with a backslash \
-This is the third paragraph. The next para is because of 2 newlines
+This is the third paragraph. The next para is because of 2 newlines  
+~Strikethrough~
 
 This is the fourth paragraph
 # Heading 1
