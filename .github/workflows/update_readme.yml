@@ -23,10 +23,15 @@ jobs:
       - name: Run script to update README
         run: python update_readme.py
 
-      - name: Commit changes
+      - name: Configure Git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Commit changes
+        run: |
           git add README.md
           git commit -m 'Update README with markdown files'
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.LEARNING_GITHUB_ACTIONS_PAT }}
