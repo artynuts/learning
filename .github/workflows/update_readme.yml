@@ -32,6 +32,6 @@ jobs:
         run: |
           git add README.md
           git commit -m 'Update README with markdown files'
-          git push https://$PAT_TOKEN@github.com/artynuts/learning.git          
+          git push https://$GITHUB_TOKEN@github.com/artynuts/learning.git          
         env:
           GITHUB_TOKEN: ${{ secrets.LEARNING_GITHUB_ACTIONS_PAT }}
