@@ -33,4 +33,30 @@ mkdir docker\postgresql\data
 cd docker
 docker-compose -up -d
 ```
+### Check if the container is running properly
 
+```
+docker ps | findstr postgres
+```
+
+### Test the connection
+
+```
+docker exec -it postgres_db psql -U postgres -d ai_model_comparison -c "\l"
+```
+
+List of databases  
+---------------------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------  
+        Name         |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | ICU Locale | ICU Rules |   Access privileges   
+---------------------+----------+----------+-----------------+------------+------------+------------+-----------+-----------------------  
+ ai_model_comparison | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | 
+ postgres            | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | 
+ template0           | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+                     |          |          |                 |            |            |            |           | postgres=CTc/postgres
+ template1           | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |            |           | =c/postgres          +
+                     |          |          |                 |            |            |            |           | postgres=CTc/postgres
+
+```
+docker exec -it postgres_db psql "postgresql://postgres:postgres@localhost:5432/ai_model_comparison" -c "\conninfo"
+```
+> You are connected to database "ai_model_comparison" as user "postgres" on host "localhost" (address "::1") at port "5432".  
