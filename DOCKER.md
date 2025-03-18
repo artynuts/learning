@@ -59,4 +59,13 @@ List of databases
 ```
 docker exec -it postgres_db psql "postgresql://postgres:postgres@localhost:5432/ai_model_comparison" -c "\conninfo"
 ```
-> You are connected to database "ai_model_comparison" as user "postgres" on host "localhost" (address "::1") at port "5432".  
+> You are connected to database "ai_model_comparison" as user "postgres" on host "localhost" (address "::1") at port "5432".
+
+### View the contents of postgresql db
+
+
+### Backup the content of the database
+
+```
+docker exec -t postgres_db pg_dump -U postgres ai_model_comparison > backup_$(Get-Date -Format "yyyyMMdd_HHmmss").sql
+```
