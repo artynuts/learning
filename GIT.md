@@ -74,9 +74,15 @@ Shows the current status of your working directory and staging area.
 1. Which branch you are on
 2. Changes staged for commit
 3. Changes not staged for commit
-
 ```
 git status
+```
+
+### Merge feature branch to master
+```
+git checkout master
+git merge feature/add-tests
+git push origin master
 ```
 
 
