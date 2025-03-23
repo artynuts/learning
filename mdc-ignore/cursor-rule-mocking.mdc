@@ -1,0 +1,64 @@
+# Mocking Best Practices
+
+When writing tests that require mocking dependencies:
+
+- Define mock functions at module level for accessibility
+- Mock implementation must mirror real behavior
+- Reset mocks between tests to avoid state leaks
+- Verify calls using module-level functions 
+- Configure test-specific behavior with mockResolvedValueOnce/mockReturnValueOnce
+
+## Class Mocks
+
+For service or utility classes:
+```typescript
+// Module-level mocks
+const mockGetData = jest.fn();
+const mockSaveData = jest.fn();
+
+// Return consistent references
+jest.mock('../MyService', () => ({
+  MyService: jest.fn(() => ({
+    getData: mockGetData,
+    saveData: mockSaveData
+  }))
+}));
+
+// Reset before each test
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockGetData.mockResolvedValue(defaultData);
+});
+
+// Direct verification
+expect(mockGetData).toHaveBeenCalledWith(expectedParams);
+```
+
+## Context/Hook Mocks
+
+For React contexts or hooks:
+```typescript
+jest.mock('../hooks/useData', () => jest.fn());
+import { useData } from '../hooks/useData';
+
+beforeEach(() => {
+  (useData as jest.Mock).mockReturnValue({
+    data: mockData,
+    isLoading: false
+  });
+});
+```
+
+## Fetch/API Mocks
+
+For fetch or API calls:
+```typescript
+global.fetch = jest.fn();
+
+beforeEach(() => {
+  (global.fetch as jest.Mock).mockResolvedValue({
+    ok: true,
+    json: () => Promise.resolve(mockResponse)
+  });
+});
+``` 

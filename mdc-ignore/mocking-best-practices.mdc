@@ -1,0 +1,207 @@
+# Effective Mocking Best Practices
+
+## Core Principles
+- Create explicit, named mock functions at the module level
+- Implement mocks that mirror the actual behavior of the dependencies
+- Ensure all mocks are accessible for verification and manipulation
+- Reset mocks between tests for isolation
+
+## Class Mocking Pattern
+
+When mocking classes with instance methods (like storage providers, services, or API clients):
+
+```typescript
+// 1. Create explicit mock functions at the module level
+const mockGetData = jest.fn();
+const mockSaveData = jest.fn();
+
+// 2. Mock the module with function implementations that return these functions
+jest.mock('../../path/to/MyClass', () => {
+  return {
+    MyClass: jest.fn().mockImplementation(() => {
+      return {
+        getData: mockGetData,
+        saveData: mockSaveData,
+      };
+    }),
+  };
+});
+
+describe('Component using MyClass', () => {
+  beforeEach(() => {
+    // 3. Reset all mocks before each test
+    jest.clearAllMocks();
+    
+    // 4. Set up default implementations
+    mockGetData.mockResolvedValue(['item1', 'item2']);
+    mockSaveData.mockResolvedValue({ success: true });
+  });
+  
+  it('fetches and displays data', async () => {
+    render(<MyComponent />);
+    
+    // 5. Verify the mock was called with expected parameters
+    expect(mockGetData).toHaveBeenCalledWith('expectedParam');
+    
+    // 6. Test the component behavior
+    await waitFor(() => {
+      expect(screen.getByText('item1')).toBeInTheDocument();
+    });
+  });
+  
+  it('handles special case', async () => {
+    // 7. Override implementation for specific test
+    mockGetData.mockResolvedValueOnce([]);
+    
+    render(<MyComponent />);
+    
+    // 8. Verify special behavior
+    await waitFor(() => {
+      expect(screen.getByText('No items found')).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## Context Mocking Pattern
+
+For React contexts:
+
+```typescript
+// 1. Create a mock for the context hook
+jest.mock('../../context/MyContext', () => ({
+  useMyContext: jest.fn(),
+}));
+
+// 2. Import the mocked module
+import { useMyContext } from '../../context/MyContext';
+
+describe('Component using context', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    
+    // 3. Set default mock implementation
+    (useMyContext as jest.Mock).mockReturnValue({
+      user: { id: '123', name: 'Test User' },
+      isLoggedIn: true,
+      logout: jest.fn(),
+    });
+  });
+  
+  it('shows user information', () => {
+    render(<ProfileComponent />);
+    expect(screen.getByText('Test User')).toBeInTheDocument();
+  });
+  
+  it('shows login screen for anonymous users', () => {
+    // 4. Override for specific test case
+    (useMyContext as jest.Mock).mockReturnValue({
+      user: null,
+      isLoggedIn: false,
+      logout: jest.fn(),
+    });
+    
+    render(<ProfileComponent />);
+    expect(screen.getByText('Please log in')).toBeInTheDocument();
+  });
+});
+```
+
+## API/Fetch Mocking Pattern
+
+```typescript
+// 1. Mock global fetch
+global.fetch = jest.fn();
+
+describe('Component using fetch', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    
+    // 2. Set up default mock implementation
+    (global.fetch as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: jest.fn().mockResolvedValue({ data: ['item1', 'item2'] }),
+    });
+  });
+  
+  it('fetches and displays API data', async () => {
+    render(<DataComponent />);
+    
+    // 3. Verify fetch was called correctly
+    expect(global.fetch).toHaveBeenCalledWith('/api/data');
+    
+    // 4. Verify component behavior
+    await waitFor(() => {
+      expect(screen.getByText('item1')).toBeInTheDocument();
+    });
+  });
+  
+  it('handles API errors', async () => {
+    // 5. Override for error case
+    (global.fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      status: 500,
+      statusText: 'Server Error',
+    });
+    
+    render(<DataComponent />);
+    
+    await waitFor(() => {
+      expect(screen.getByText('Error loading data')).toBeInTheDocument();
+    });
+  });
+});
+```
+
+## Common Mistakes to Avoid
+
+1. **Attempting to access mock methods through mock instances**:
+   ```typescript
+   // ❌ Unreliable
+   const instance = (MyClass as jest.Mock).mock.instances[0];
+   expect(instance.getData).toHaveBeenCalled();
+   
+   // ✅ Reliable
+   expect(mockGetData).toHaveBeenCalled();
+   ```
+
+2. **Creating new mock implementations for each test**:
+   ```typescript
+   // ❌ Hard to maintain, doesn't allow verification
+   jest.mock('../../path/to/MyClass', () => ({
+     MyClass: jest.fn().mockImplementation(() => ({
+       getData: jest.fn().mockResolvedValue(['data']),
+     })),
+   }));
+   
+   // ✅ Allows verification and per-test customization
+   // Use module-level mocks as shown earlier
+   ```
+
+3. **Not resetting mocks between tests**:
+   ```typescript
+   // ❌ Can cause test contamination
+   // Missing jest.clearAllMocks() in beforeEach
+   
+   // ✅ Clean slate for each test
+   beforeEach(() => {
+     jest.clearAllMocks();
+   });
+   ```
+
+4. **Setting up mock implementations that don't match real behavior**:
+   ```typescript
+   // ❌ Doesn't match real method signature/behavior
+   mockGetData.mockReturnValue('data');  // If real method returns Promise
+   
+   // ✅ Mimics real behavior
+   mockGetData.mockResolvedValue(['item1', 'item2']);
+   ```
+
+## Best Practices for Test Maintainability
+
+1. Create mock setup helper functions for complex dependencies
+2. Document expected mock behavior with comments
+3. Make mocks fail obviously when used incorrectly
+4. Only mock what you need to control for the test
+5. Keep mock implementations simple while still representative of real behavior 

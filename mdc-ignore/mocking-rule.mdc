@@ -1,0 +1,56 @@
+# Effective Mocking
+
+When writing tests, always follow these mocking practices:
+
+1. Define mock functions at the module level outside tests
+2. Implement module mocks that return these functions
+3. Clear all mocks before each test
+4. Use module-level mocks for verification
+5. Use mockResolvedValueOnce/mockReturnValueOnce for test overrides
+
+## Examples
+
+### Class mocking:
+```typescript
+const mockGetData = jest.fn();
+jest.mock('../Service', () => ({
+  Service: jest.fn().mockImplementation(() => ({
+    getData: mockGetData
+  }))
+}));
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  mockGetData.mockResolvedValue(defaultResult);
+});
+
+it('test', () => {
+  expect(mockGetData).toHaveBeenCalled();
+});
+```
+
+### Context mocking:
+```typescript
+jest.mock('../MyContext', () => ({
+  useMyContext: jest.fn()
+}));
+import { useMyContext } from '../MyContext';
+
+beforeEach(() => {
+  (useMyContext as jest.Mock).mockReturnValue({
+    value: 'default'
+  });
+});
+```
+
+### Fetch mocking:
+```typescript
+global.fetch = jest.fn();
+
+beforeEach(() => {
+  (global.fetch as jest.Mock).mockResolvedValue({
+    ok: true,
+    json: jest.fn().mockResolvedValue({ data: [] })
+  });
+});
+``` 
