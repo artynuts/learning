@@ -12,3 +12,15 @@ We can enforce pre-commit checks to enforce code coverage with Husky. The follow
 6. **Developer experience**: Husky includes helpful features like error reporting and compatible with other tools in the JavaScript ecosystem.
 
 Native Git hooks would work, but Husky offers a more developer-friendly experience for JavaScript projects like yours.
+
+
+## End 2 End tests
+
+### Playwright
+```
+npm install -D @playwright/test
+npx playwright init # setup playwright config
+npx playwright install
+mkdir e2e
+```
+
